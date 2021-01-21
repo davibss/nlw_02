@@ -1,0 +1,202 @@
+#page-landing {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--color-text-in-primary);
+    background: var(--color-primary);
+}
+
+.container {
+    height: 100%;
+}
+
+.page-landing-header {
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-user {
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: 8rem;
+    text-decoration: none;
+}
+
+.card-user img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+}
+
+.card-user p {
+    margin-left: 1rem;
+    color: var(--color-text-in-primary);
+    font-weight: bold;
+}
+
+.logout-button {
+    width: 4rem;
+    height: 4rem;
+    margin-top: 2rem;
+    margin-right: 4rem;
+
+    border-radius: 0.5rem;
+    background-color: var(--color-primary-dark);
+    padding: 0.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .page-landing-content-header { */
+    /* display: flex; */
+/* } */
+
+.page-landing-content-buttons {
+    width: 100%;
+    background-color: ivory;
+}
+
+.logo-container img{
+    height: 10rem;
+}
+
+.hero-image {
+    width: 50%;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 3.2rem;
+}
+
+.logo-container h2 {
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 4.6rem;
+    margin-top: 0.8rem;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3.2rem 0;
+}
+
+.buttons-container a {
+    width: 30rem;
+    height: 10.4rem;
+    border-radius: 0.8rem;
+    margin-right: 1.6rem;
+    font: 700 2.0rem Archivo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    color: var(--color-button-text);
+
+    transition: background-color 0.2s;
+}
+
+.buttons-container a:first-child{
+    margin-right: 1.6rem;
+}
+
+.buttons-container a img {
+    width: 4rem;
+}
+
+.buttons-container a.study {
+    background: var(--color-primary-lighter);
+}
+
+.buttons-container a.give-classes {
+    background: var(--color-secundary);
+}
+
+.buttons-container a.study:hover {
+    background: var(--color-primary-light);
+}
+
+.buttons-container a.give-classes:hover {
+    background: var(--color-secundary-dark);
+}
+
+.buttons-container a img {
+    margin-right: 2.4rem;
+}
+
+.buttons-container-welcome {
+    font-size: 2rem;
+    color: var(--color-text-base);
+}
+
+.total-connections {
+    font-size: 1.4rem;
+    display: flex;
+    text-align: end;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    margin-right: 6rem;
+    color: var(--color-text-complement);
+}
+
+.total-connections img {
+    margin-left: 0.8rem;
+}
+
+@media (min-width: 1100px){
+    #page-landing-content {
+        max-width: 1100px;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo-container {
+        align-self: center;
+        text-align: left;
+        margin: 0;
+    }
+
+    .logo-container h2 {
+        text-align: initial;
+        font-size: 3.6rem;
+    }
+
+    .logo-container img {
+        height: 100%;
+    }
+
+    .hero-image {
+        justify-self: end;
+    }
+
+    .buttons-container {
+        justify-content: center;
+    }
+
+    .buttons-container a { 
+        font-size: 2.4rem;
+    }
+    
+    .total-connections {
+        justify-self: end;
+    }
+}

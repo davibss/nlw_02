@@ -1,0 +1,77 @@
+.page-register {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-register-main {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.page-register-body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.top-bar-container {
+    width: 100%;
+    margin: 0 auto;
+    color: var(--color-text-in-primary);
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+.page-form-register {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-title {
+    color: var(--color-text-title);
+}
+
+.form-text {
+    margin-bottom: 2rem;
+    max-width: 24rem;
+    color: var(--color-text-base);
+}
+
+.button-send {
+    width: 100%;
+    text-decoration: none;
+    margin-top: 1.4rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    border: 0;
+    text-align: center;
+    color: var(--color-text-base);
+}
+
+.login-button-enter {
+    background-color: #DCDCE5;
+}
+
+.login-button-enter-active {
+    background-color: var(--color-secundary);
+    color: var(--color-title-in-primary);
+}
