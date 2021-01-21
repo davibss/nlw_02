@@ -46,6 +46,10 @@
     font-weight: bold;
 }
 
+.card-user p:hover {
+    text-decoration: underline;
+}
+
 .logout-button {
     width: 4rem;
     height: 4rem;

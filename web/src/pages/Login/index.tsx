@@ -13,8 +13,8 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const {signIn,signed} = useAuth();
-    console.log(signed);
+    const {signIn} = useAuth();
+    // console.log(signed);
 
     function handleInputEmail(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;

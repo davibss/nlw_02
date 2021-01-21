@@ -16,16 +16,29 @@ import './styles.css';
 import api from '../../services/api';
 import {useAuth} from '../../contexts/auth';
 
+interface SimpleUserData {
+    name: string;
+    avatar: string;
+}
+
 function Landing(){
     const [totalConnections, setTotalConnections] = useState(0);
-    const {signOut} = useAuth();
+    const [userName, setUserName] = useState('');
+    const [userAvatar, setUserAvatar] = useState('');
+    const {signOut,userId} = useAuth();
 
     useEffect(() => {
         api.get('/connections')
             .then(response => {
                 setTotalConnections(response.data.total);
-            })
-    }, []);
+            });
+        api.get(`/user-simple-profile/${userId}`)
+            .then(response => {
+                const {avatar, name} = response.data as SimpleUserData;
+                setUserName(name);
+                setUserAvatar(avatar);
+            });
+    }, [userId]);
 
     function handleLogoutClick() {
         if (window.confirm('Tem certeza que quer sair?')){
@@ -36,9 +49,9 @@ function Landing(){
     return (
         <div id="page-landing">
             <div className="page-landing-header">
-                <Link to="/" className="card-user">
-                    <img src="https://image.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg" alt=""/>
-                    <p>Random User</p>
+                <Link to="/user-profile" className="card-user">
+                    <img src={userAvatar} alt=""/>
+                    <p>{userName}</p>
                 </Link>
                 <Link to="#" className="logout-button" onClick={handleLogoutClick}>
                     <img src={logoutIcon} alt="logout"/>
