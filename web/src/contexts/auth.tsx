@@ -7,7 +7,7 @@ interface AuthContextData {
     signed: boolean;
     token: string;
     userId: number;
-    signIn(email: string,password: string): Promise<void>;
+    signIn(email: string,password: string, checked: boolean): Promise<void>;
     signOut(): void;
 }
 
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC = ({children}) => {
         loadStorageData();
     },[])
 
-    async function signIn(email: string, password: string){
+    async function signIn(email: string, password: string, checked: boolean){
         // const response = await login(email,password);
         login(email,password).then(response => {
             const {token,userId} = response;
@@ -41,8 +41,10 @@ export const AuthProvider: React.FC = ({children}) => {
 
             api.defaults.headers.Authorization = `Bearer ${token}`;
 
-            window.localStorage.setItem('@RNAuth:userId', JSON.stringify(userId));
-            window.localStorage.setItem('@RNAuth:token', token);
+            if (checked){
+                window.localStorage.setItem('@RNAuth:userId', JSON.stringify(userId));
+                window.localStorage.setItem('@RNAuth:token', token);
+            }
         }).catch(error => {
             alert(error.response.data.message);
         })

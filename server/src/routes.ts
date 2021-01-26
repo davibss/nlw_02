@@ -19,6 +19,9 @@ routes.post('/users', usersController.create);
 routes.post('/login', usersController.login);
 
 routes.get('/user-simple-profile/:id', usersController.simpleProfile);
+routes.get('/users/:id', usersController.index);
+
+routes.get('/proffy-profile/:id', usersController.proffyProfile);
 
 // routes.get("/", (req,res) =>  {
     // return res.json({message: 'Hello World'})

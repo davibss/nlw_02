@@ -12,7 +12,7 @@ function Login(){
     const [readyRegister, setReadyRegister] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [rememberme, setRememberme] = useState(false);
     const {signIn} = useAuth();
     // console.log(signed);
 
@@ -33,12 +33,17 @@ function Login(){
         setPassword(value);
         setReadyRegister(email !== '' && value !== '');
     }
+    
+    function handleCheckbox() {
+        setRememberme(!rememberme);
+    }
 
     function handleLoginButton(){
         if (readyRegister){
-            signIn(email,password);
+            signIn(email,password,rememberme);
         }
     }
+
 
     function formPreventDefault(e: React.FormEvent){
         e.preventDefault();
@@ -51,11 +56,26 @@ function Login(){
                 <main className="page-login-body">
                     <h1 className="page-login-title">Fazer login</h1>
                     <form action="" className="page-login-form" onSubmit={formPreventDefault} autoComplete="false">
-                        <input type="email" className="login-input" placeholder="E-mail" onChange={handleInputEmail}/>
-                        <input type="password" className="login-input" placeholder="Senha" onChange={handlePassword}/>
+                        <input 
+                            type="email" 
+                            className="login-input" 
+                            placeholder="E-mail" 
+                            autoComplete="on"
+                            onChange={handleInputEmail}/>
+                        <input 
+                            type="password" 
+                            className="login-input" 
+                            placeholder="Senha" 
+                            autoComplete="on"
+                            onChange={handlePassword}/>
                         <div className="form-password-group">
                             <div className="form-checkbox">
-                                <input type="checkbox" name="Lembrar" className="login-input-checkbox"/>
+                                <input
+                                    type="checkbox"
+                                    name="Lembrar"
+                                    className="login-input-checkbox"
+                                    checked={rememberme}
+                                    onChange={handleCheckbox}/>
                                 <p>Lembrar-me</p>
                             </div>
                             <Link to="/forgotten-password" className="login-link-forgotten">

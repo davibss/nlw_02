@@ -6,9 +6,29 @@
 #page-user-form .page-header {
     margin-bottom: 6.4rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-top: 4rem;
     color: blanchedalmond;
+}
+
+#page-user-form .page-header img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+#page-user-form .page-header h3 {
+    margin-top: 1rem;
+    font-size: 3.2rem;
+    font-weight: bold;
+    font-family: 'Archivo';
+}
+
+#page-user-form .page-header h5 {
+    font-size: 1.8rem;
+    color: var(--color-text-in-primary);
+    font-weight: normal;
 }
 
 #page-user-form main {
@@ -16,7 +36,7 @@
     width: 100%;
     max-width: 74rem;
     border-radius: 0.8rem;
-    margin: -3.2rem auto 3.2rem;
+    margin: -12rem auto 3.2rem;
     padding-top: 6.4rem;
     overflow: hidden;
 }
@@ -99,6 +119,35 @@
     text-decoration: none;
     transition: background-color 0.2s;
     margin-top: 3.2rem;
+}
+
+#page-user-form main fieldset div.group-name {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+#page-user-form main fieldset div.group-name .input-block:first-child {
+    margin-right: 4rem;
+}
+
+#page-user-form main fieldset div.group-contact {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+#page-user-form main fieldset div.group-contact .input-block:nth-of-type(1) {
+    margin-right: 4rem;
+    width: 100%;
+    flex-grow: 3;
+}
+
+#page-user-form main fieldset div.group-contact .input-block:nth-of-type(2) {
+    width: 100%;
+    flex-shrink: 1.8;
 }
 
 #page-user-form main footer button:hover {

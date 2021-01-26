@@ -1,0 +1,21 @@
+.simple-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary-darker);
+    padding: 1rem;
+}
+
+.simple-header-title {
+    color: var(--color-text-in-primary);
+}
+
+.simple-header-goback {
+    margin-left: 10rem;
+}
+
+.simple-header-logo {
+    width: 5.2rem;
+    margin-right: 10rem;
+}

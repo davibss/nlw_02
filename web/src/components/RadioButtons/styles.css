@@ -1,0 +1,61 @@
+.select-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.select-buttons div label {
+    margin-left: 1rem;
+}
+
+.container-selection {
+    width: 100%;
+    background-color: var(--color-input-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.container-selection.enable {
+    background-color: var(--color-secundary);
+}
+
+.container-selection.disable {
+    background-color: var(--color-background);
+}
+
+.container-selection img {
+    width: 40px;
+    fill: var(--color-text-base);
+}
+
+.container-selection svg {
+    width: 40px;   
+}
+
+.container-selection svg.disable {
+    fill: var(--color-text-complement);
+}
+
+.container-selection svg.enable {
+    fill: var(--color-title-in-primary);
+}
+
+.container-selection span {
+    margin-left: 1.4rem;
+    font-weight: bold;
+}
+
+.container-selection span.enable {
+    color: var(--color-title-in-primary);
+}
+
+.container-selection span.disable {
+    color: var(--color-text-complement);
+}

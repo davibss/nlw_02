@@ -21,6 +21,14 @@
 }
 
 * {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

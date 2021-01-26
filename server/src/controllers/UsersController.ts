@@ -11,7 +11,8 @@ export default class UsersController {
         const {
             name,
             email,
-            password
+            password,
+            is_proffy
         } = req.body;
 
         const avatar = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
@@ -22,7 +23,13 @@ export default class UsersController {
 
         try {
             await makeHash(password).then(async (hash) => {
-                await trx('users').insert({email,password: hash,name,avatar,bio,whatsapp});
+                await trx('users').insert({email,
+                    password: hash,
+                    name,
+                    avatar,
+                    bio,
+                    whatsapp,
+                    is_proffy});
                 await trx.commit();
             });
 
@@ -58,7 +65,26 @@ export default class UsersController {
     async simpleProfile(req:Request, res:Response){
         const {id} = req.params;
         const user = await db('users').where('id','=',id).first(['name','avatar']);
-        console.log(user);
-        return res.json(user).sendStatus(200);
+        return res.status(200).json(user);
+    }
+
+    async index(req:Request, res: Response) {
+        const {id} = req.params;
+
+        const user = await db('users')
+                            .where('id','=',id)
+                            .first('name','avatar','email','bio','whatsapp','is_proffy');
+        return res.status(200).json(user);
+    }
+
+    async proffyProfile(req: Request, res:Response){
+        const {id} = req.params;
+
+        const proffy = await db('users')
+                            .join('classes', 'users.id', '=', 'classes.user_id')
+                            .where('users.id','=',id)
+                            .select(['users.name','classes.*'])
+                            .first();
+        return res.status(200).json(proffy);
     }
 }

@@ -10,7 +10,9 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
 const Textarea: React.FunctionComponent<TextareaProps> = ({label, name, ...rest}) => {
     return (
         <div className="textarea-block">
-            <label htmlFor={name}>{label}</label>
+            <label htmlFor={name}>{label}
+                <span className="sublabel">(Máximo 300 caracteres)</span>
+            </label>
             <textarea id={name} {...rest} />
         </div>
     );

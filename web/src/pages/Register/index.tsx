@@ -14,6 +14,7 @@ import { Dialog } from '@material-ui/core';
 import Sucess from '../Sucess';
 import { validateEmail } from '../../utils/Validator';
 import api from '../../services/api';
+import RadioButtons from '../../components/RadioButtons';
 
 function Register() {
     const [readyRegister, setReadyRegister] = useState(false);
@@ -22,6 +23,7 @@ function Register() {
     const [undername, setUndername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isProffy, setIsProffy] = useState(false);
 
     function formPreventDefault(e: React.FormEvent){
         e.preventDefault();
@@ -39,11 +41,9 @@ function Register() {
     }
 
     function handleSendButton(){
-        // if (readyRegister){
-            // setOpen(true);
-        // }
         const completeName = `${name} ${undername}`;
-        api.post('/users', {name: completeName, email, password})
+        console.log(isProffy);
+        api.post('/users', {name: completeName, email, password, is_proffy: isProffy})
             .then(() => {
                 if (readyRegister){
                     setOpen(true);
@@ -52,7 +52,6 @@ function Register() {
             .catch(() => {
                 alert('An error has ocurred!');
             });
-        // console.log(name,undername,email,password);
     }
 
     return (
@@ -92,6 +91,7 @@ function Register() {
                                 typeInput="password"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}/>
+                            <RadioButtons proffy={isProffy} setProffy={setIsProffy}/>
                             <input 
                                 type="button"
                                 disabled={!readyRegister}
