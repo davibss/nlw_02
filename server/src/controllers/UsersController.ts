@@ -51,21 +51,13 @@ export default class UsersController {
         const userPass = user[0].password;
         const userId = user[0].id;
 
-        // await compareHash(password, passDB.password).then(result => {
         await compareHash(password, userPass).then(result => {
-            // console.log(process.env.SECRET);
             const token = jwt.sign({userId}, process.env.SECRET);
             if (result){
                 return res.send({token, userId});
             }
             return res.status(401).json({message: 'Invalid login!'});
         });
-    }
-
-    async simpleProfile(req:Request, res:Response){
-        const {id} = req.params;
-        const user = await db('users').where('id','=',id).first(['name','avatar']);
-        return res.status(200).json(user);
     }
 
     async index(req:Request, res: Response) {
@@ -77,14 +69,42 @@ export default class UsersController {
         return res.status(200).json(user);
     }
 
+    async simpleProfile(req:Request, res:Response){
+        const {id} = req.params;
+        const user = await db('users').where('id','=',id).first(['name','avatar']);
+        return res.status(200).json(user);
+    }
+
+
     async proffyProfile(req: Request, res:Response){
         const {id} = req.params;
 
         const proffy = await db('users')
-                            .join('classes', 'users.id', '=', 'classes.user_id')
+                            .innerJoin('classes', 'users.id', '=', 'classes.user_id')
+                            .innerJoin('class_schedule','classes.id','=','class_schedule.class_id')
+                            .select([
+                                'users.*',
+                                'classes.id as classID',
+                                'classes.subject',
+                                'classes.cost',
+                                db.raw('ARRAY_AGG(row_to_json(class_schedule)) as schedules'),
+                            ])
                             .where('users.id','=',id)
-                            .select(['users.name','classes.*'])
+                            .groupBy('users.id','classes.id')
+                            // .join('classes', 'id', '=', 'classes.user_id')
+                            // .select(['users.name','classes.*'])
                             .first();
+
         return res.status(200).json(proffy);
+    }
+
+    async update(req: Request, res: Response) {
+        const {id} = req.params;
+        const updatedFields = req.body;
+
+        const updatedUser = await db('users')
+                                    .where('id','=',id)
+                                    .update(updatedFields, ['*']);
+        return res.status(200).json(updatedUser);
     }
 }

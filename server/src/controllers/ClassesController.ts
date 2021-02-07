@@ -47,9 +47,9 @@ export default class ClasssesController {
         const {
             // name,
             id,
-            avatar,
-            whatsapp,
-            bio,
+            // avatar,
+            // whatsapp,
+            // bio,
             subject,
             cost,
             schedule
@@ -63,9 +63,9 @@ export default class ClasssesController {
             // }).returning('id');
         
             // const user_id = insertedUserIDS[0];
-            await trx('users')
-                .where('id','=',id)
-                .update({avatar,bio,whatsapp});
+            // await trx('users')
+                // .where('id','=',id)
+                // .update({avatar,bio,whatsapp});
         
             const insertedClassesIDS = await trx('classes').insert({
                 subject, cost, user_id: id

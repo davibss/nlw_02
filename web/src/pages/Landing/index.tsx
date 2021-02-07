@@ -13,7 +13,7 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
-import api from '../../services/api';
+import {api} from '../../services/api';
 import {useAuth} from '../../contexts/auth';
 
 interface SimpleUserData {

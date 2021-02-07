@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 import warningIcon from '../../assets/images/icons/warning.svg';
 import Textarea from '../../components/TextArea';
 import Select from '../../components/Select';
-import api from '../../services/api';
+import {api} from '../../services/api';
 
 function TeacherForm(){
     const history = useHistory();

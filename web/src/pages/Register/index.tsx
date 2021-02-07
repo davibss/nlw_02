@@ -13,7 +13,7 @@ import InputMaterial from '../../components/InputMaterial';
 import { Dialog } from '@material-ui/core';
 import Sucess from '../Sucess';
 import { validateEmail } from '../../utils/Validator';
-import api from '../../services/api';
+import {api} from '../../services/api';
 import RadioButtons from '../../components/RadioButtons';
 
 function Register() {

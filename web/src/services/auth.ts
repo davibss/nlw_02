@@ -1,4 +1,4 @@
-import api from "./api";
+import {api} from "./api";
 
 interface Response {
     token: string,

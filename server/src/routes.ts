@@ -18,9 +18,10 @@ routes.get('/connections', connectionsController.index);
 routes.post('/users', usersController.create);
 routes.post('/login', usersController.login);
 
+routes.patch('/users/:id', usersController.update);
+
 routes.get('/user-simple-profile/:id', usersController.simpleProfile);
 routes.get('/users/:id', usersController.index);
-
 routes.get('/proffy-profile/:id', usersController.proffyProfile);
 
 // routes.get("/", (req,res) =>  {
