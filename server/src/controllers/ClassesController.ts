@@ -9,6 +9,10 @@ interface ScheduleItem {
     to: string,
 }
 
+interface ScheduleItemUpdate extends ScheduleItem{
+    id: number;
+}
+
 export default class ClasssesController {
 
     async index(req:Request, res:Response){
@@ -45,11 +49,7 @@ export default class ClasssesController {
 
     async create(req:Request,res:Response) {
         const {
-            // name,
-            id,
-            // avatar,
-            // whatsapp,
-            // bio,
+            user_id,
             subject,
             cost,
             schedule
@@ -57,18 +57,9 @@ export default class ClasssesController {
     
         const trx = await db.transaction();
     
-        try {
-            // const insertedUserIDS = await trx('users').insert({
-                // name, avatar, whatsapp, bio
-            // }).returning('id');
-        
-            // const user_id = insertedUserIDS[0];
-            // await trx('users')
-                // .where('id','=',id)
-                // .update({avatar,bio,whatsapp});
-        
+        try {        
             const insertedClassesIDS = await trx('classes').insert({
-                subject, cost, user_id: id
+                subject, cost, user_id
             }).returning('id');
             const class_id = insertedClassesIDS[0];
         
@@ -92,5 +83,35 @@ export default class ClasssesController {
                 error: 'Unexpected error while creating new class'
             });
         }
+    }
+
+    async update(req: Request, res: Response){
+        const {id} = req.params;
+        const updatedFields = req.body;
+        let schedules = [];
+        if ('schedules' in updatedFields){
+            schedules = updatedFields.schedules;
+            delete updatedFields.schedules;
+        }
+
+        const updatedClass = await db('classes')
+                                .where('id','=',id)
+                                .update(updatedFields,['*']) as any;
+
+
+        // console.log('schedules', schedules);
+        const updatedSchedules = await Promise.all(schedules.map(async (scheduleItem: ScheduleItemUpdate) => {
+            const classFields = {
+                week_day: scheduleItem.week_day,
+                from: convertHourToMinutes(scheduleItem.from),
+                to: convertHourToMinutes(scheduleItem.to),
+            };
+            const scheduleUpdated = await db('class_schedule')
+                                    .where('id','=',scheduleItem.id)
+                                    .update(classFields,'*') as any;
+            return scheduleUpdated[0];
+        }));
+        return res.status(200).json({...updatedClass[0], schedules: updatedSchedules});
+
     }
 }

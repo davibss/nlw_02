@@ -11,6 +11,7 @@ const routes = express.Router();
 
 routes.post('/classes', classController.create);
 routes.get('/classes', classController.index);
+routes.patch('/classes/:id', classController.update);
 
 routes.post('/connections', connectionsController.create);
 routes.get('/connections', connectionsController.index);

@@ -83,7 +83,12 @@ export default class UsersController {
                             .innerJoin('classes', 'users.id', '=', 'classes.user_id')
                             .innerJoin('class_schedule','classes.id','=','class_schedule.class_id')
                             .select([
-                                'users.*',
+                                'users.name',
+                                'users.email',
+                                'users.bio',
+                                'users.whatsapp',
+                                'users.avatar',
+                                'users.is_proffy',
                                 'classes.id as classID',
                                 'classes.subject',
                                 'classes.cost',
