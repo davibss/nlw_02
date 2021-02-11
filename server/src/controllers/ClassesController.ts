@@ -3,6 +3,9 @@ import {Request,Response} from 'express';
 import db from "../database/connection";
 import convertHourToMinutes from "../utils/convertHourToMinutes";
 
+import ScheduleController from './ScheduleController';
+const scheduleController = new ScheduleController();
+
 interface ScheduleItem {
     week_day: number,
     from: string,
@@ -87,31 +90,25 @@ export default class ClasssesController {
 
     async update(req: Request, res: Response){
         const {id} = req.params;
-        const updatedFields = req.body;
-        let schedules = [];
-        if ('schedules' in updatedFields){
-            schedules = updatedFields.schedules;
-            delete updatedFields.schedules;
-        }
-
+        let { updatedFields } = req.body;
+        console.log(req.body);
+        const schedules = req.body.schedules || [];
+        const deleteSchedules = req.body.deleteSchedules || [];
+        const createSchedules = req.body.createSchedules || [];
+    
         const updatedClass = await db('classes')
                                 .where('id','=',id)
                                 .update(updatedFields,['*']) as any;
 
-
-        // console.log('schedules', schedules);
-        const updatedSchedules = await Promise.all(schedules.map(async (scheduleItem: ScheduleItemUpdate) => {
-            const classFields = {
-                week_day: scheduleItem.week_day,
-                from: convertHourToMinutes(scheduleItem.from),
-                to: convertHourToMinutes(scheduleItem.to),
-            };
-            const scheduleUpdated = await db('class_schedule')
-                                    .where('id','=',scheduleItem.id)
-                                    .update(classFields,'*') as any;
-            return scheduleUpdated[0];
-        }));
-        return res.status(200).json({...updatedClass[0], schedules: updatedSchedules});
-
+        const updatedSchedules = await scheduleController.updateManySchedules(schedules);
+        const createdSchedules = await scheduleController
+                                        .createManySchedules(createSchedules, Number(id), res);
+        const deletedSchedules = await scheduleController.deleteManySchedules(deleteSchedules);
+        return res.status(200).json({
+            ...updatedClass[0], 
+            schedules: updatedSchedules, 
+            createdSchedules,
+            deletedSchedules    
+        });
     }
 }
