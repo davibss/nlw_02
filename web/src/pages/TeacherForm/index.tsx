@@ -1,5 +1,5 @@
 import React, {useState, FormEvent, useEffect} from 'react';
-import PageHeader from '../../components/PageHeader';
+import PageHeader, { SubdescriptionType } from '../../components/PageHeader';
 import {useHistory} from 'react-router-dom';
 
 import './styles.css';
@@ -130,7 +130,8 @@ function TeacherForm(){
         <div id="page-teacher-form" className="container">
             <PageHeader 
                 title="Que incrível que você quer dar aulas"
-                description="O primeiro passo é preencher esse formulário de inscrição"/>
+                description="O primeiro passo é preencher esse formulário de inscrição"
+                subdescriptionType={SubdescriptionType.TeacherForm}/>
             <main>
                 <form onSubmit={handleCreateClass}>
                     <fieldset>

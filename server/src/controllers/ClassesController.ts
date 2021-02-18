@@ -24,12 +24,16 @@ export default class ClasssesController {
         const subject = filters.subject as string;
         const week_day = filters.week_day as string;
         const time = filters.time as string;
+        const page = Number(filters.page as string || 1);
 
-        if (!filters.subject || !filters.week_day || !filters.time) {
-            return res.status(400).json({
-                error: "Missing filters to search classes"
-            });
-        }
+        const per_page = 2; // hereafter, change to 5
+        const offset = (page - 1) * per_page;
+
+        // if (!filters.subject || !filters.week_day || !filters.time) {
+            // return res.status(400).json({
+                // error: "Missing filters to search classes"
+            // });
+        // }
 
         const timeInMinutes = convertHourToMinutes(time);
 
@@ -37,15 +41,38 @@ export default class ClasssesController {
             .whereExists(function() {
                 this.select('class_schedule.*')
                     .from('class_schedule')
+                    .modify((queryBuilder) => {
+                        if (week_day){
+                            queryBuilder.whereRaw('class_schedule.week_day = ??', [Number(week_day)]);
+                        }
+                        if (time) {
+                            queryBuilder.whereRaw('class_schedule.from <= ??', [timeInMinutes]);
+                            queryBuilder.whereRaw('class_schedule.to > ??', [timeInMinutes]);
+                        }
+                    })
                     .whereRaw('class_schedule.class_id = classes.id')
-                    .whereRaw('class_schedule.week_day = ??', [Number(week_day)])
-                    .whereRaw('class_schedule.from <= ??', [timeInMinutes])
-                    .whereRaw('class_schedule.to > ??', [timeInMinutes])
+                    // .whereRaw('class_schedule.week_day = ??', [Number(week_day)])
+                    
             })
-            .where('classes.subject', '=', subject)
+            .modify((queryBuilder) => {
+                if (subject) {
+                    queryBuilder.where('classes.subject', '=', subject)
+                }
+            })
+            // .where('classes.subject', '=', subject)
             .join('users', 'classes.user_id', '=', 'users.id')
+            .innerJoin('class_schedule','classes.id','=','class_schedule.class_id')
             // .select(['classes.*', 'users.*'])
-            .select(['classes.*', 'users.name','users.bio','users.whatsapp','users.avatar'])
+            .select(['classes.*',
+                     'users.name',
+                     'users.bio',
+                     'users.whatsapp',
+                     'users.avatar',
+                     db.raw('ARRAY_AGG(row_to_json(class_schedule)) as schedules'),
+            ])
+            .groupBy('classes.id','users.name','users.bio','users.whatsapp','users.avatar')
+            .offset(offset)
+            .limit(per_page);
 
         res.json(classes)
     }
@@ -86,6 +113,11 @@ export default class ClasssesController {
                 error: 'Unexpected error while creating new class'
             });
         }
+    }
+
+    async countProffys(req: Request, res: Response){
+        const numberProffys = await db('classes').count("id").first();
+        return res.status(200).json(numberProffys);
     }
 
     async update(req: Request, res: Response){

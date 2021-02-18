@@ -42,7 +42,6 @@ function Register() {
 
     function handleSendButton(){
         const completeName = `${name} ${undername}`;
-        console.log(isProffy);
         api.post('/users', {name: completeName, email, password, is_proffy: isProffy})
             .then(() => {
                 if (readyRegister){

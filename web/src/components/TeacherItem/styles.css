@@ -40,6 +40,33 @@
     line-height: 2.8rem;
 }
 
+.teacher-item .schedule-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 3rem;
+    margin: 2rem 0;
+}
+
+.teacher-item .schedule-container .schedule-item {
+    width: 100%;
+    border: 2px solid var(--color-line-in-white);
+    background-color: #FAFAFC;
+    border-radius: 8px;
+    padding: 1.8rem;
+    font-size: 14px;
+}
+
+.teacher-item .schedule-container .schedule-item.disable{
+    border: none;
+    filter: opacity(60%);
+}
+
+.teacher-item .schedule-container .schedule-item label{
+    color: var(--color-text-complement);
+}
+
 .teacher-item footer {
     padding: 3.2rem 2rem;
     background: var(--color-box-footer);

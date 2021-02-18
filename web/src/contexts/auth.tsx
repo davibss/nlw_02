@@ -16,7 +16,6 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({children}) => {
     const [userId,setUserId] = useState<number>(0);
     const [token,setToken] = useState<string>('');
-    // const history = useHistory();
 
     function loadStorageData() {
         const storageUserId = window.localStorage.getItem('@RNAuth:userId');
@@ -47,13 +46,7 @@ export const AuthProvider: React.FC = ({children}) => {
             }
         }).catch(error => {
             alert(error.response.data.message);
-        })
-        // console.log(response);
-        // login(email,password).then(result => {
-            // history.push('/home');
-        // }).catch(error => {
-            // alert(error.response.data.message);
-        // });
+        });
     }
 
     function signOut(){

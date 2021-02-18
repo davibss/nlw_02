@@ -199,28 +199,28 @@ function UserProfile(){
                         (
                             <>
                                 <fieldset>
-                                <legend>Sobre a aula</legend>
-                                <Select disabled
-                                    name="subject" 
-                                    label="Matéria"
-                                    value={proffyClass.subject || ''}
-                                    options={[
-                                        {value: 'Artes', label: 'Artes'},
-                                        {value: 'Biologia', label: 'Biologia'},
-                                        {value: 'Ciências', label: 'Ciências'},
-                                        {value: 'Educação Física', label: 'Educação Física'},
-                                        {value: 'Matemática', label: 'Matemática'},
-                                        {value: 'Português', label: 'Português'},
-                                        {value: 'Física', label: 'Física'},
-                                        {value: 'Química', label: 'Química'},
-                                        {value: 'Geografia', label: 'Geografia'},
-                                        {value: 'História', label: 'História'},
-                                    ]}/>
-                                <Input disabled
-                                    name="cost" 
-                                    label="Custo da sua aula por hora"
-                                    value={`R$ ${proffyClass.cost.toFixed(2).replace('.',',')}`}/>
-                            </fieldset>
+                                    <legend>Sobre a aula</legend>
+                                    <Select disabled
+                                        name="subject" 
+                                        label="Matéria"
+                                        value={proffyClass.subject || ''}
+                                        options={[
+                                            {value: 'Artes', label: 'Artes'},
+                                            {value: 'Biologia', label: 'Biologia'},
+                                            {value: 'Ciências', label: 'Ciências'},
+                                            {value: 'Educação Física', label: 'Educação Física'},
+                                            {value: 'Matemática', label: 'Matemática'},
+                                            {value: 'Português', label: 'Português'},
+                                            {value: 'Física', label: 'Física'},
+                                            {value: 'Química', label: 'Química'},
+                                            {value: 'Geografia', label: 'Geografia'},
+                                            {value: 'História', label: 'História'},
+                                        ]}/>
+                                    <Input disabled
+                                        name="cost" 
+                                        label="Custo da sua aula por hora"
+                                        value={`R$ ${proffyClass.cost.toFixed(2).replace('.',',')}`}/>
+                                </fieldset>
                                 <fieldset>
                                     <legend>
                                         Horários Disponíveis

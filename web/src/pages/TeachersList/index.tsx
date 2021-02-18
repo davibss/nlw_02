@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 
 import './styles.css';
 import PageHeader from '../../components/PageHeader';
@@ -7,32 +7,62 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import {api} from '../../services/api';
 
+import {SubdescriptionType} from '../../components/PageHeader';
+
 function TeacherList(){
     const [subject, setSubject] = useState('');
     const [weekDay, setWeekDay] = useState('');
     const [time, setTime] = useState('');
+    const [page,setPage] = useState(1);
+    const [proffyOverflow, setProffyOverlow] = useState(false);
+    const [totalProffys, setTotalProffys] = useState(0);
 
     const [teachers, setTeachers] = useState<Teacher[]>([]);
 
+    useEffect(() => {
+        api.get('classes-count') 
+            .then(response => {
+                const {count} = response.data;
+                setTotalProffys(count)
+            })
+    },[])
+
     async function searchTeachers(e:FormEvent){
         e.preventDefault();
-
         const response = await api.get('/classes', {params: 
             {
                 week_day: weekDay,
                 subject,
-                time
+                time,
+                page: 1
             }
         });
         setTeachers(response.data);
-        //console.log(response.data);
-        //console.log(subject,weekDay,time);
+        setProffyOverlow(false);
+        setPage(1);
+    }
+
+    async function loadMoreProffys(){
+        const response = await api.get('/classes', {params: 
+            {
+                week_day: weekDay,
+                subject,
+                time,
+                page: page + 1
+            }
+        });
+        setPage(page+1);
+        setTeachers([...teachers,...response.data]);
+        if (response.data.length === 0){
+            setProffyOverlow(true);
+        }
     }
 
 
     return (
         <div id="page-teacher-list" className="container">
-            <PageHeader title="Estes são os proffys disponíveis">
+            <PageHeader title="Estes são os proffys disponíveis" 
+                        subdescriptionType={SubdescriptionType.TeacherList} totalProffys={totalProffys}>
                 <form id="search-teachers" onSubmit={searchTeachers}>
                     <Select 
                         name="subject" 
@@ -80,7 +110,17 @@ function TeacherList(){
                 {teachers.map((teacher: Teacher) => {
                     return <TeacherItem key={teacher.id} teacher={teacher}/>;
                 })}
-
+                {teachers.length === 0 ? 
+                    <p className="main-text">
+                        Nenhum professor encontrado na sua pesquisa
+                    </p> 
+                        : 
+                    proffyOverflow ? 
+                    <p className="main-overflow-text">Estes são todos os resultados</p>
+                    :
+                    <p className="main-load-button" onClick={loadMoreProffys}>
+                        Carregar mais proffys</p>
+                }
             </main>
         </div>
     );

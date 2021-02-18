@@ -25,6 +25,8 @@ routes.get('/user-simple-profile/:id', usersController.simpleProfile);
 routes.get('/users/:id', usersController.index);
 routes.get('/proffy-profile/:id', usersController.proffyProfile);
 
+routes.get('/classes-count',classController.countProffys);
+
 // routes.get("/", (req,res) =>  {
     // return res.json({message: 'Hello World'})
 // })
