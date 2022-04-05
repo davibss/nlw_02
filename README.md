@@ -10,6 +10,12 @@ O NLW é uma experiência online com muito conteúdo prático, desafios e hacks 
 
 ---
 
+## Preview do projeto
+![AuthPage](https://github.com/davibss/nlw_02/blob/main/preview/login_pag.png)
+![HomePage](https://github.com/davibss/nlw_02/blob/main/preview/home_page.png)
+![GiveLessons](https://github.com/davibss/nlw_02/blob/main/preview/lessons.png)
+![SearchProfs](https://github.com/davibss/nlw_02/blob/main/preview/search_profs.png)
+
 ## Como executar o projeto
 
 Este projeto é divido em três partes:
