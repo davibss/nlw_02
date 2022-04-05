@@ -36,7 +36,9 @@ $ cd server
 # Instale as dependências
 $ npm install
 # Execute a aplicação em modo de desenvolvimento
-$ npm run dev:server
+# Não esqueça de configurar seu banco de dados no arquivo server/knexfile.ts
+$ npm run knex:migrate
+$ npm run start
 # O servidor inciará na porta:3333 - acesse http://localhost:3333 
 ```
 
