@@ -21,7 +21,7 @@ export const AuthProvider: React.FC = ({children}) => {
         const storageUserId = window.localStorage.getItem('@RNAuth:userId');
         const storageToken = window.localStorage.getItem('@RNAuth:token');
         if (storageUserId && storageToken) {
-            api.defaults.headers.Authorization = `Bearer ${storageToken}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
             setUserId(JSON.parse(storageUserId));
             setToken(storageToken);
         }
@@ -38,7 +38,7 @@ export const AuthProvider: React.FC = ({children}) => {
             setUserId(userId);
             setToken(token);
 
-            api.defaults.headers.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
             if (checked){
                 window.localStorage.setItem('@RNAuth:userId', JSON.stringify(userId));
